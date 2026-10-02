@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="id" class="h-full bg-slate-900">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santama Works Hub — Dashboard Management CV Santama Karya Indonesia</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Chart.js CDN for analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Tailwind Config matching Santama Karya Brand Design -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            orange: '#D96B27',
+                            orangeHover: '#B85519',
+                            orangeLight: 'rgba(217, 107, 39, 0.15)',
+                            charcoal: '#121619',
+                            darkCard: '#1A2026',
+                            darkBorder: '#2A323D',
+                            slate: '#1E242B',
+                            lightBg: '#F8FAFC',
+                            muted: '#94A3B8'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        display: ['"Space Grotesk"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0F1317;
+            color: #F1F5F9;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #121619;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2A323D;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #D96B27;
+        }
+
+        .glass-panel {
+            background: rgba(26, 32, 38, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-card {
+            background: #1A2026;
+            border: 1px solid #2A323D;
+        }
+
+        .active-tab {
+            background-color: rgba(217, 107, 39, 0.15);
+            color: #D96B27;
+            border-right: 3px solid #D96B27;
+        }
+    </style>
+</head>
+<body class="h-full flex overflow-hidden">
+
+    <!-- LEFT SIDEBAR -->
+    <aside id="sidebar" class="w-64 bg-brand-charcoal border-r border-brand-darkBorder flex flex-col justify-between transition-all duration-300 z-30 fixed lg:relative h-full -translate-x-full lg:translate-x-0">
+        <div>
+            <!-- Brand Logo Header -->
+            <div class="p-5 border-b border-brand-darkBorder flex items-center justify-between">
+                <a href="#" class="flex items-center gap-3">
+                    <div class="w-9 h-9 flex-shrink-0">
+                        <svg viewBox="0 0 200 200" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M 60 115 A 45 45 0 0 0 140 115 L 155 110 L 150 125 L 160 135 L 142 142 L 138 158 L 122 156 L 112 170 L 98 162 L 88 170 L 78 156 L 62 158 L 58 142 L 40 135 L 50 125 Z" fill="#FFFFFF" />
+                            <circle cx="100" cy="115" r="28" fill="#121619" />
+                            <path d="M 70 45 H 130 V 62 H 88 V 82 H 112 C 122 82 128 88 128 98 V 110 C 128 124 116 135 100 135 C 84 135 72 124 72 110 V 82 H 88 V 110 C 88 116 93 120 100 120 C 107 120 112 116 112 110 V 98 C 112 96 110 94 106 94 H 70 V 45 Z" fill="#D96B27" />
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="font-display font-extrabold text-sm tracking-wider uppercase text-white block leading-none">
+                            SANTAMA
+                        </span>
+                        <span class="text-[9px] text-brand-orange font-semibold tracking-widest block mt-0.5 uppercase">
+                            WORKS HUB
+                        </span>
+                    </div>
+                </a>
+                <button onclick="toggleSidebar()" class="lg:hidden text-gray-400 hover:text-white">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <!-- Navigation Links -->
+            <nav class="p-3 space-y-1 mt-3">
+                <div class="px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-gray-500">
+                    Main Menu
+                </div>
+
+                <a href="#overview" onclick="switchTab('overview')" id="nav-overview" class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium transition-colors active-tab">
+                    <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+                    <span>Ringkasan Dashboard</span>
+                </a>
+
+                <a href="#projects" onclick="switchTab('projects')" id="nav-projects" class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-colors">
+                    <i data-lucide="building-2" class="w-4 h-4"></i>
+                    <span>Proyek & Progres Lapangan</span>
+                    <span class="ml-auto bg-brand-orange/20 text-brand-orange text-xs font-semibold px-2 py-0.5 rounded-full">8</span>
+                </a>
+
+                <a href="#leads" onclick="switchTab('leads')" id="nav-leads" class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-colors">
+                    <i data-lucide="users" class="w-4 h-4"></i>
+                    <span>Konsultasi & Lead Masuk</span>
+                    <span class="ml-auto bg-green-500/20 text-green-400 text-xs font-semibold px-2 py-0.5 rounded-full">12 Baru</span>
+                </a>
+
+                <a href="#estimator" onclick="switchTab('estimator')" id="nav-estimator" class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-colors">
+                    <i data-lucide="calculator" class="w-4 h-4"></i>
+                    <span>Kalkulator Estimasi RAB</span>
+                </a>
+
+                <a href="#photolog" onclick="switchTab('photolog')" id="nav-photolog" class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-colors">
+                    <i data-lucide="camera" class="w-4 h-4"></i>
+                    <span>Galeri & Log Foto Progres</span>
+                </a>
+
+                <div class="pt-6 px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-gray-500">
+                    Pengaturan System
+                </div>
+
+                <a href="#settings" onclick="switchTab('settings')" id="nav-settings" class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-colors">
+                    <i data-lucide="sliders" class="w-4 h-4"></i>
+                    <span>Pengaturan Tim & Lokasi</span>
+                </a>
+            </nav>
+        </div>
+
+        <!-- Role Mode Switcher & User Profile Footer -->
+        <div class="p-4 border-t border-brand-darkBorder bg-brand-charcoal/50">
+            <!-- View Mode Switch (Admin vs Client View) -->
+            <div class="mb-4 bg-brand-slate p-1.5 rounded-lg flex items-center justify-between text-xs">
+                <span class="text-gray-400 pl-2">Mode Tampilan:</span>
+                <button id="role-toggle-btn" onclick="toggleRoleView()" class="px-2.5 py-1 rounded bg-brand-orange text-white font-semibold transition-all">
+                    Admin Kontraktor
+                </button>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" alt="Project Manager Avatar" class="w-9 h-9 rounded-full object-cover border border-brand-orange">
+                <div class="overflow-hidden">
+                    <p class="text-xs font-semibold text-white truncate">Hendra Santoso, ST</p>
+                    <p class="text-[10px] text-gray-400 truncate">Project Director Surakarta</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <div class="flex-1 flex flex-col h-full overflow-hidden">
+        
+        <!-- TOP APP BAR -->
+        <header class="h-16 border-b border-brand-darkBorder bg-brand-charcoal/80 backdrop-blur-md px-4 sm:px-8 flex items-center justify-between z-20">
+            <div class="flex items-center gap-4">
+                <button onclick="toggleSidebar()" class="lg:hidden text-gray-300 hover:text-white p-1">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+                <div class="hidden sm:flex items-center gap-2 text-xs text-gray-400">
+                    <a href="index.html" class="hover:text-brand-orange transition-colors flex items-center gap-1">
+                        <i data-lucide="globe" class="w-3.5 h-3.5"></i>
+                        <span>Lihat Landing Page Website</span>
+                    </a>
+                    <span>/</span>
+                    <span class="text-gray-200 font-medium">Internal Management Portal</span>
+                </div>
+            </div>
+
+            <!-- Top Actions & Search -->
+            <div class="flex items-center gap-3 sm:gap-4">
+                <!-- Search Box -->
+                <div class="relative hidden md:block w-64">
+                    <i data-lucide="search" class="w-4 h-4 absolute left-3 top-2.5 text-gray-400"></i>
+                    <input type="text" placeholder="Cari proyek, client, atau lokasi..." class="w-full bg-brand-darkCard border border-brand-darkBorder rounded-lg pl-9 pr-3 py-1.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-brand-orange">
+                </div>
+
+                <!-- New Project Quick Action Button -->
+                <button onclick="openModal('new-project-modal')" class="px-3.5 py-1.5 rounded-lg bg-brand-orange hover:bg-brand-orangeHover text-white text-xs font-semibold flex items-center gap-2 shadow-sm transition-all">
+                    <i data-lucide="plus" class="w-4 h-4"></i>
+                    <span class="hidden sm:inline">Tambah Proyek Baru</span>
+                </button>
+
+                <!-- Notifications -->
+                <button class="p-2 rounded-lg bg-brand-darkCard border border-brand-darkBorder text-gray-300 hover:text-white relative">
+                    <i data-lucide="bell" class="w-4 h-4"></i>
+                    <span class="w-2 h-2 rounded-full bg-brand-orange absolute top-1.5 right-1.5 animate-ping"></span>
+                    <span class="w-2 h-2 rounded-full bg-brand-orange absolute top-1.5 right-1.5"></span>
+                </button>
+            </div>
+        </header>
+
+        <!-- DASHBOARD BODY CONTENT (SCROLLABLE) -->
+        <main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 space-y-8 bg-[#0F1317]">
+            
+            <!-- VIEW TAB 1: OVERVIEW -->
+            <div id="tab-overview" class="space-y-8">
+                
+                <!-- Welcome Banner -->
+                <div class="p-6 rounded-2xl glass-card relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border-l-4 border-brand-orange">
+                    <div class="relative z-10">
+                        <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-brand-orange/20 text-brand-orange text-xs font-semibold mb-3">
+                            <span class="w-2 h-2 rounded-full bg-brand-orange animate-pulse"></span>
+                            <span>Sistem Operasional Kontraktor Surakarta</span>
+                        </div>
+                        <h1 class="font-display text-2xl sm:text-3xl font-bold text-white mb-2">
+                            Dashboard Pengawasan Pembangunan
+                        </h1>
+                        <p class="text-sm text-gray-400 max-w-xl">
+                            Pantau seluruh jadwal pengerjaan proyek, estimasi anggaran (RAB), log foto progres harian, dan konsultasi calon klien secara real-time.
+                        </p>
+                    </div>
+
+                    <div class="flex items-center gap-3 z-10">
+                        <button onclick="switchTab('projects')" class="px-4 py-2 rounded-lg bg-brand-slate hover:bg-gray-800 text-white text-xs font-semibold border border-brand-darkBorder transition-all flex items-center gap-2">
+                            <i data-lucide="eye" class="w-4 h-4 text-brand-orange"></i>
+                            <span>Semua Proyek Lapangan</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- KPI Stats 4 Grid Cards -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+                    
+                    <!-- Card 1 -->
+                    <div class="p-5 rounded-xl glass-card border border-brand-darkBorder hover:border-brand-orange/40 transition-all">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-medium text-gray-400">Proyek Berjalan</span>
+                            <div class="w-9 h-9 rounded-lg bg-brand-orange/15 text-brand-orange flex items-center justify-center">
+                                <i data-lucide="hard-hat" class="w-5 h-5"></i>
+                            </div>
+                        </div>
+                        <div class="flex items-baseline justify-between">
+                            <span class="font-display text-3xl font-bold text-white">8</span>
+                            <span class="text-xs text-green-400 font-medium flex items-center gap-0.5">
+                                <i data-lucide="trending-up" class="w-3.5 h-3.5"></i>
+                                +2 Bulan ini
+                            </span>
+                        </div>
+                        <p class="text-[11px] text-gray-500 mt-2">6 Rumah, 1 Coffee Shop, 1 Dinas</p>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="p-5 rounded-xl glass-card border border-brand-darkBorder hover:border-brand-orange/40 transition-all">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-medium text-gray-400">Ketepatan Jadwal (SLA)</span>
+                            <div class="w-9 h-9 rounded-lg bg-blue-500/15 text-blue-400 flex items-center justify-center">
+                                <i data-lucide="clock" class="w-5 h-5"></i>
+                            </div>
+                        </div>
+                        <div class="flex items-baseline justify-between">
+                            <span class="font-display text-3xl font-bold text-white">96.8%</span>
+                            <span class="text-xs text-green-400 font-medium">Sesuai Timeline</span>
+                        </div>
+                        <p class="text-[11px] text-gray-500 mt-2">Pengawasan harian mandor</p>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="p-5 rounded-xl glass-card border border-brand-darkBorder hover:border-brand-orange/40 transition-all">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-medium text-gray-400">Konsultasi Client Baru</span>
+                            <div class="w-9 h-9 rounded-lg bg-emerald-500/15 text-emerald-400 flex items-center justify-center">
+                                <i data-lucide="message-square" class="w-5 h-5"></i>
+                            </div>
+                        </div>
+                        <div class="flex items-baseline justify-between">
+                            <span class="font-display text-3xl font-bold text-white">12</span>
+                            <span class="text-xs text-brand-orange font-medium">Perlu Tindak Lanjut</span>
+                        </div>
+                        <p class="text-[11px] text-gray-500 mt-2">Surakarta & Surrounding</p>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="p-5 rounded-xl glass-card border border-brand-darkBorder hover:border-brand-orange/40 transition-all">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-medium text-gray-400">Total Nilai Kontrak</span>
+                            <div class="w-9 h-9 rounded-lg bg-purple-500/15 text-purple-400 flex items-center justify-center">
+                                <i data-lucide="wallet" class="w-5 h-5"></i>
+                            </div>
+                        </div>
+                        <div class="flex items-baseline justify-between">
+                            <span class="font-display text-2xl font-bold text-white">Rp 8.4 M</span>
+                            <span class="text-xs text-gray-400">Aktif</span>
+                        </div>
+                        <p class="text-[11px] text-gray-500 mt-2">Termasuk renovasi & bangun baru</p>
+                    </div>
+
+                </div>
+
+                <!-- Chart and Active Progress Highlights Split -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    
+                    <!-- Construction Timeline Curve Chart -->
+                    <div class="lg:col-span-8 p-6 rounded-2xl glass-card border border-brand-darkBorder">
+                        <div class="flex items-center justify-between mb-6">
+                            <div>
+                                <h3 class="font-display font-bold text-base text-white">Progres Fisik vs Rencana (Kurva S)</h3>
+                                <p class="text-xs text-gray-400">Kumulatif capaian konstruksi Triwulan Q3 2026</p>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="inline-flex items-center gap-1.5 text-xs text-brand-orange font-medium">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-brand-orange"></span> Realisasi
+                                </span>
+                                <span class="inline-flex items-center gap-1.5 text-xs text-gray-400 font-medium ml-3">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-gray-500"></span> Target RAB
+                                </span>
+                            </div>
+                        </div>
+                        <div class="h-64">
+                            <canvas id="progressChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Active Site Quick Overview -->
+                    <div class="lg:col-span-4 p-6 rounded-2xl glass-card border border-brand-darkBorder flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="font-display font-bold text-base text-white">Proyek Prioritas</h3>
+                                <a href="#projects" onclick="switchTab('projects')" class="text-xs text-brand-orange hover:underline font-medium">Lihat Semua</a>
+                            </div>
+
+                            <div class="space-y-4">
+                                <!-- Quick Item 1 -->
+                                <div class="p-3.5 rounded-xl bg-brand-slate/60 border border-brand-darkBorder">
+                                    <div class="flex items-center justify-between mb-1.5">
+                                        <h4 class="text-xs font-bold text-white truncate">Coffee Shop Joyosuran</h4>
+                                        <span class="text-[10px] font-bold text-brand-orange bg-brand-orange/15 px-2 py-0.5 rounded">75% Complete</span>
+                                    </div>
+                                    <p class="text-[11px] text-gray-400 mb-2">Tahap: Pemasangan Interior & Finishing Façade</p>
+                                    <div class="w-full bg-gray-800 rounded-full h-1.5 overflow-hidden">
+                                        <div class="bg-brand-orange h-1.5 rounded-full" style="width: 75%"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Quick Item 2 -->
+                                <div class="p-3.5 rounded-xl bg-brand-slate/60 border border-brand-darkBorder">
+                                    <div class="flex items-center justify-between mb-1.5">
+                                        <h4 class="text-xs font-bold text-white truncate">Rumah Tinggal Fajar Indah</h4>
+                                        <span class="text-[10px] font-bold text-blue-400 bg-blue-500/15 px-2 py-0.5 rounded">42% Complete</span>
+                                    </div>
+                                    <p class="text-[11px] text-gray-400 mb-2">Tahap: Pengecoran Plat Lantai 2 & Kolom</p>
+                                    <div class="w-full bg-gray-800 rounded-full h-1.5 overflow-hidden">
+                                        <div class="bg-blue-500 h-1.5 rounded-full" style="width: 42%"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Quick Item 3 -->
+                                <div class="p-3.5 rounded-xl bg-brand-slate/60 border border-brand-darkBorder">
+                                    <div class="flex items-center justify-between mb-1.5">
+                                        <h4 class="text-xs font-bold text-white truncate">Renovasi Façade Kusumodilagan</h4>
+                                        <span class="text-[10px] font-bold text-green-400 bg-green-500/15 px-2 py-0.5 rounded">90% Complete</span>
+                                    </div>
+                                    <p class="text-[11px] text-gray-400 mb-2">Tahap: Cat Aksen & Pemasangan Lampu LED</p>
+                                    <div class="w-full bg-gray-800 rounded-full h-1.5 overflow-hidden">
+                                        <div class="bg-green-500 h-1.5 rounded-full" style="width: 90%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Site Weather Notice -->
+                        <div class="mt-4 pt-4 border-t border-brand-darkBorder flex items-center justify-between text-xs text-gray-400">
+                            <span class="flex items-center gap-1.5">
+                                <i data-lucide="sun" class="w-4 h-4 text-amber-400"></i> Cuaca Surakarta: Cerah (31°C)
+                            </span>
+                            <span class="text-green-400 font-medium">Aman Pengecoran</span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- VIEW TAB 2: PROJECTS LIST & STAGES -->
+            <div id="tab-projects" class="space-y-6 hidden">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                        <h2 class="font-display text-xl font-bold text-white">Daftar Proyek Aktif & Pengawasan Lapangan</h2>
+                        <p class="text-xs text-gray-400">Lacak kemajuan pekerjaan fisik, mandor penanggung jawab, dan tenggat waktu.</p>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        <!-- Filter Category Buttons -->
+                        <button class="px-3 py-1.5 rounded-lg bg-brand-orange text-white text-xs font-medium">Semua (8)</button>
+                        <button class="px-3 py-1.5 rounded-lg bg-brand-darkCard border border-brand-darkBorder text-gray-400 hover:text-white text-xs font-medium">Rumah</button>
+                        <button class="px-3 py-1.5 rounded-lg bg-brand-darkCard border border-brand-darkBorder text-gray-400 hover:text-white text-xs font-medium">Coffee Shop</button>
+                        <button class="px-3 py-1.5 rounded-lg bg-brand-darkCard border border-brand-darkBorder text-gray-400 hover:text-white text-xs font-medium">Renovasi</button>
+                    </div>
+                </div>
+
+                <!-- Projects Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    
+                    <!-- Project Card 1 -->
+                    <div class="glass-card rounded-2xl overflow-hidden border border-brand-darkBorder hover:border-brand-orange/40 transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="relative h-44 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" alt="Rumah Fajar Indah" class="w-full h-full object-cover">
+                                <div class="absolute top-3 left-3 px-2.5 py-1 rounded bg-black/70 backdrop-blur-md text-[10px] font-bold text-white uppercase tracking-wide">
+                                    Bangun Dari 0
+                                </div>
+                                <div class="absolute top-3 right-3 px-2.5 py-1 rounded bg-brand-orange text-white text-xs font-bold">
+                                    42%
+                                </div>
+                            </div>
+
+                            <div class="p-5">
+                                <h3 class="font-display font-bold text-base text-white mb-1">
+                                    Rumah Minimalis Tropis Fajar Indah
+                                </h3>
+                                <p class="text-xs text-gray-400 flex items-center gap-1 mb-4">
+                                    <i data-lucide="map-pin" class="w-3.5 h-3.5 text-brand-orange"></i>
+                                    Fajar Indah, Surakarta
+                                </p>
+
+                                <div class="space-y-3 text-xs mb-4">
+                                    <div class="flex justify-between text-gray-400">
+                                        <span>Tahap Saat Ini:</span>
+                                        <span class="text-white font-medium">Pengecoran Lt. 2</span>
+                                    </div>
+                                    <div class="flex justify-between text-gray-400">
+                                        <span>Pelaksana / Mandor:</span>
+                                        <span class="text-white font-medium">Bpk. Agus Raharjo</span>
+                                    </div>
+                                    <div class="flex justify-between text-gray-400">
+                                        <span>Target Selesai:</span>
+                                        <span class="text-brand-orange font-medium">15 November 2026</span>
+                                    </div>
+                                </div>
+
+                                <div class="w-full bg-gray-800 rounded-full h-2 overflow-hidden mb-2">
+                                    <div class="bg-brand-orange h-2 rounded-full" style="width: 42%"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-brand-slate/40 border-t border-brand-darkBorder flex items-center justify-between">
+                            <button onclick="viewProjectDetails('Rumah Minimalis Tropis Fajar Indah')" class="text-xs font-semibold text-brand-orange hover:underline flex items-center gap-1">
+                                <span>Detail Checklist & Foto</span>
+                                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                            </button>
+                            <span class="text-[10px] text-gray-500">Update 2 jam lalu</span>
+                        </div>
+                    </div>
+
+                    <!-- Project Card 2 -->
+                    <div class="glass-card rounded-2xl overflow-hidden border border-brand-darkBorder hover:border-brand-orange/40 transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="relative h-44 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=80" alt="Coffee Shop Joyosuran" class="w-full h-full object-cover">
+                                <div class="absolute top-3 left-3 px-2.5 py-1 rounded bg-black/70 backdrop-blur-md text-[10px] font-bold text-white uppercase tracking-wide">
+                                    Coffee Shop / Usaha
+                                </div>
+                                <div class="absolute top-3 right-3 px-2.5 py-1 rounded bg-brand-orange text-white text-xs font-bold">
+                                    75%
+                                </div>
+                            </div>
+
+                            <div class="p-5">
+                                <h3 class="font-display font-bold text-base text-white mb-1">
+                                    Ruang Kopi & Communal Space Joyosuran
+                                </h3>
+                                <p class="text-xs text-gray-400 flex items-center gap-1 mb-4">
+                                    <i data-lucide="map-pin" class="w-3.5 h-3.5 text-brand-orange"></i>
+                                    Pasar Kliwon, Surakarta
+                                </p>
+
+                                <div class="space-y-3 text-xs mb-4">
+                                    <div class="flex justify-between text-gray-400">
+                                        <span>Tahap Saat Ini:</span>
+                                        <span class="text-white font-medium">Finishing Steel & Lighting</span>
+                                    </div>
+                                    <div class="flex justify-between text-gray-400">
+                                        <span>Pelaksana / Mandor:</span>
+                                        <span class="text-white font-medium">Ir. Doni Prasetyo</span>
+                                    </div>
+                                    <div class="flex justify-between text-gray-400">
+                                        <span>Target Selesai:</span>
+                                        <span class="text-brand-orange font-medium">28 Oktober 2026</span>
+                                    </div>
+                                </div>
+
+                                <div class="w-full bg-gray-800 rounded-full h-2 overflow-hidden mb-2">
+                                    <div class="bg-brand-orange h-2 rounded-full" style="width: 75%"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-brand-slate/40 border-t border-brand-darkBorder flex items-center justify-between">
+                            <button onclick="viewProjectDetails('Ruang Kopi Joyosuran')" class="text-xs font-semibold text-brand-orange hover:underline flex items-center gap-1">
+                                <span>Detail Checklist & Foto</span>
+                                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                            </button>
+                            <span class="text-[10px] text-gray-500">Update 45 menit lalu</span>
+                        </div>
+                    </div>
+
+                    <!-- Project Card 3 -->
+                    <div class="glass-card rounded-2xl overflow-hidden border border-brand-darkBorder hover:border-brand-orange/40 transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="relative h-44 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80" alt="Renovasi Interior Solobaru" class="w-full h-full object-cover">
+                                <div class="absolute top-3 left-3 px-2.5 py-1 rounded bg-black/70 backdrop-blur-md text-[10px] font-bold text-white uppercase tracking-wide">
+                                    Renovasi & Interior
+                                </div>
+                                <div class="absolute top-3 right-3 px-2.5 py-1 rounded bg-brand-orange text-white text-xs font-bold">
+                                    88%
+                                </div>
+                            </div>
+
+                            <div class="p-5">
+                                <h3 class="font-display font-bold text-base text-white mb-1">
+                                    Renovasi Interior & Façade Solobaru
+                                </h3>
+                                <p class="text-xs text-gray-400 flex items-center gap-1 mb-4">
+                                    <i data-lucide="map-pin" class="w-3.5 h-3.5 text-brand-orange"></i>
+                                    Grogol, Sukoharjo / Surakarta
+                                </p>
+
+                                <div class="space-y-3 text-xs mb-4">
+                                    <div class="flex justify-between text-gray-400">
+                                        <span>Tahap Saat Ini:</span>
+                                        <span class="text-white font-medium">Pengecatan & Floor Parket</span>
+                                    </div>
+                                    <div class="flex justify-between text-gray-400">
+                                        <span>Pelaksana / Mandor:</span>
+                                        <span class="text-white font-medium">Bpk. Slamet Wibowo</span>
+                                    </div>
+                                    <div class="flex justify-between text-gray-400">
+                                        <span>Target Selesai:</span>
+                                        <span class="text-brand-orange font-medium">10 Oktober 2026</span>
+                                    </div>
+                                </div>
+
+                                <div class="w-full bg-gray-800 rounded-full h-2 overflow-hidden mb-2">
+                                    <div class="bg-brand-orange h-2 rounded-full" style="width: 88%"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-brand-slate/40 border-t border-brand-darkBorder flex items-center justify-between">
+                            <button onclick="viewProjectDetails('Renovasi Interior Solo Baru')" class="text-xs font-semibold text-brand-orange hover:underline flex items-center gap-1">
+                                <span>Detail Checklist & Foto</span>
+                                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                            </button>
+                            <span class="text-[10px] text-gray-500">Update Kemarin</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- VIEW TAB 3: CLIENT CONSULTATION LEADS -->
+            <div id="tab-leads" class="space-y-6 hidden">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                        <h2 class="font-display text-xl font-bold text-white">Data Konsultasi & Permintaan Masuk (Leads)</h2>
+                        <p class="text-xs text-gray-400">Daftar calon klien dari landing page website yang mengajukan diskusi proyek.</p>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs text-gray-400">Total 12 Calon Klien</span>
+                    </div>
+                </div>
+
+                <!-- Leads Table Card -->
+                <div class="glass-card rounded-2xl border border-brand-darkBorder overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs text-gray-300">
+                            <thead class="bg-brand-slate text-gray-400 uppercase text-[10px] font-bold tracking-wider border-b border-brand-darkBorder">
+                                <tr>
+                                    <th class="p-4">Calon Client</th>
+                                    <th class="p-4">Jenis Proyek</th>
+                                    <th class="p-4">Lokasi / Kota</th>
+                                    <th class="p-4">Estimasi Budget</th>
+                                    <th class="p-4">Status Layanan</th>
+                                    <th class="p-4 text-right">Aksi Tindak Lanjut</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-brand-darkBorder">
+                                
+                                <tr class="hover:bg-white/5 transition-colors">
+                                    <td class="p-4 font-semibold text-white">
+                                        <div class="font-medium text-sm text-white">Bpk. Dr. Aris Munandar</div>
+                                        <div class="text-[10px] text-gray-500">+62 812-9876-1122</div>
+                                    </td>
+                                    <td class="p-4">
+                                        <span class="px-2 py-0.5 rounded bg-brand-orange/20 text-brand-orange font-semibold">Bangun Rumah 2 Lt</span>
+                                    </td>
+                                    <td class="p-4 text-gray-400">Solo Baru, Surakarta</td>
+                                    <td class="p-4 font-mono text-gray-200">Rp 1.2 M - 1.5 M</td>
+                                    <td class="p-4">
+                                        <span class="px-2 py-1 rounded-full bg-amber-500/20 text-amber-400 font-semibold text-[10px]">
+                                            Perlu Jadwal Survey
+                                        </span>
+                                    </td>
+                                    <td class="p-4 text-right space-x-2">
+                                        <a href="https://wa.me/6282156615866?text=Halo%20Bpk.%20Aris,%20kami%20dari%20CV%20Santama%20Karya%20Indonesia%20ingin%20mengonfirmasi%20jadwal%20survey%20lokasi." target="_blank" class="px-3 py-1 rounded bg-green-600 hover:bg-green-700 text-white font-medium inline-flex items-center gap-1">
+                                            <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
+                                            <span>WhatsApp</span>
+                                        </a>
+                                    </td>
+                                </tr>
+
+                                <tr class="hover:bg-white/5 transition-colors">
+                                    <td class="p-4 font-semibold text-white">
+                                        <div class="font-medium text-sm text-white">Ibu Maya Kurnia</div>
+                                        <div class="text-[10px] text-gray-500">+62 857-4321-8899</div>
+                                    </td>
+                                    <td class="p-4">
+                                        <span class="px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 font-semibold">Coffee Shop Modern</span>
+                                    </td>
+                                    <td class="p-4 text-gray-400">Jebres, Surakarta</td>
+                                    <td class="p-4 font-mono text-gray-200">Rp 450 Juta</td>
+                                    <td class="p-4">
+                                        <span class="px-2 py-1 rounded-full bg-blue-500/20 text-blue-400 font-semibold text-[10px]">
+                                            Desain Ditinjau
+                                        </span>
+                                    </td>
+                                    <td class="p-4 text-right space-x-2">
+                                        <a href="https://wa.me/6282156615866?text=Halo%20Ibu%20Maya,%20kami%20siap%20membahas%20konsep%20Coffee%20Shop." target="_blank" class="px-3 py-1 rounded bg-green-600 hover:bg-green-700 text-white font-medium inline-flex items-center gap-1">
+                                            <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
+                                            <span>WhatsApp</span>
+                                        </a>
+                                    </td>
+                                </tr>
+
+                                <tr class="hover:bg-white/5 transition-colors">
+                                    <td class="p-4 font-semibold text-white">
+                                        <div class="font-medium text-sm text-white">Bpk. Ir. Budi Santoso</div>
+                                        <div class="text-[10px] text-gray-500">+62 813-1122-3344</div>
+                                    </td>
+                                    <td class="p-4">
+                                        <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-semibold">Renovasi Façade & Interior</span>
+                                    </td>
+                                    <td class="p-4 text-gray-400">Banjarsari, Surakarta</td>
+                                    <td class="p-4 font-mono text-gray-200">Rp 250 Juta</td>
+                                    <td class="p-4">
+                                        <span class="px-2 py-1 rounded-full bg-green-500/20 text-green-400 font-semibold text-[10px]">
+                                            RAB Terkirim
+                                        </span>
+                                    </td>
+                                    <td class="p-4 text-right space-x-2">
+                                        <a href="https://wa.me/6282156615866" target="_blank" class="px-3 py-1 rounded bg-green-600 hover:bg-green-700 text-white font-medium inline-flex items-center gap-1">
+                                            <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
+                                            <span>WhatsApp</span>
+                                        </a>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW TAB 4: RAB CALCULATOR & ESTIMATOR -->
+            <div id="tab-estimator" class="space-y-6 hidden">
+                <div>
+                    <h2 class="font-display text-xl font-bold text-white">Kalkulator Estimasi Anggaran Pembangunan (RAB)</h2>
+                    <p class="text-xs text-gray-400">Hitung perkiraan biaya kasar berdasarkan luas bangunan dan spesifikasi material standar Santama Karya.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    
+                    <!-- Input Form Column -->
+                    <div class="lg:col-span-7 p-6 rounded-2xl glass-card border border-brand-darkBorder space-y-5">
+                        
+                        <!-- Select Project Type -->
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-300 mb-2">1. Jenis Kategori Pembangunan</label>
+                            <div class="grid grid-cols-3 gap-3">
+                                <button type="button" onclick="setEstType('rumah', 4500000)" id="est-type-rumah" class="p-3 rounded-xl bg-brand-orange/20 border border-brand-orange text-white text-xs font-semibold text-center transition-all">
+                                    Rumah Tinggal
+                                </button>
+                                <button type="button" onclick="setEstType('coffee', 5200000)" id="est-type-coffee" class="p-3 rounded-xl bg-brand-slate border border-brand-darkBorder text-gray-400 hover:text-white text-xs font-semibold text-center transition-all">
+                                    Coffee Shop / Komersial
+                                </button>
+                                <button type="button" onclick="setEstType('renovasi', 3200000)" id="est-type-renovasi" class="p-3 rounded-xl bg-brand-slate border border-brand-darkBorder text-gray-400 hover:text-white text-xs font-semibold text-center transition-all">
+                                    Renovasi
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Building Area Slider -->
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <label class="text-xs font-semibold text-gray-300">2. Estimasi Luas Bangunan (m²)</label>
+                                <span id="area-val-display" class="font-display text-sm font-bold text-brand-orange">120 m²</span>
+                            </div>
+                            <input type="range" id="area-slider" min="36" max="500" value="120" oninput="calculateEstimator()" class="w-full accent-brand-orange bg-brand-darkBorder rounded-lg h-2 cursor-pointer">
+                            <div class="flex justify-between text-[10px] text-gray-500 mt-1">
+                                <span>36 m² (Minimal)</span>
+                                <span>250 m²</span>
+                                <span>500 m² (Mewah)</span>
+                            </div>
+                        </div>
+
+                        <!-- Specification Grade -->
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-300 mb-2">3. Kelas Spesifikasi Material</label>
+                            <select id="spec-select" onchange="calculateEstimator()" class="w-full bg-brand-darkCard border border-brand-darkBorder rounded-xl p-3 text-xs text-white focus:outline-none focus:border-brand-orange">
+                                <option value="1.0">Standar High Quality (Granit 60x60, Cakar Ayam, Cat Weathercoat)</option>
+                                <option value="1.3" selected>Premium Architectural (Bata Merah Pres, Sanitari Toto/Grohe, Kayu Jati Accent)</option>
+                                <option value="1.65">Luxury / Smart Home (Struktur Besi Ulir, Smart Lock, Interior Custom Built-in)</option>
+                            </select>
+                        </div>
+
+                        <!-- Include Design / Consult Checkbox -->
+                        <div class="p-4 rounded-xl bg-brand-slate/60 border border-brand-darkBorder flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <input type="checkbox" id="include-design" checked onchange="calculateEstimator()" class="w-4 h-4 accent-brand-orange rounded">
+                                <div>
+                                    <label for="include-design" class="text-xs font-semibold text-white cursor-pointer">Sertakan Gambar Arsitek 3D & DED Struct</label>
+                                    <p class="text-[10px] text-gray-400">Perencanaan lengkap sebelum pelaksanaan konstruksi</p>
+                                </div>
+                            </div>
+                            <span class="text-xs font-bold text-brand-orange">+ Termasuk</span>
+                        </div>
+
+                    </div>
+
+                    <!-- Output Results Card -->
+                    <div class="lg:col-span-5 p-6 rounded-2xl glass-card border border-brand-orange/40 bg-gradient-to-b from-brand-darkCard to-brand-charcoal flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-semibold text-brand-orange uppercase tracking-wider block mb-2">Perkiraan Biaya Konstruksi</span>
+                            <h3 class="font-display text-xs text-gray-400 mb-1">Estimasi Total Investasi Bangunan:</h3>
+                            <div id="total-cost-display" class="font-display text-3xl sm:text-4xl font-extrabold text-white mb-6">
+                                Rp 702.000.000
+                            </div>
+
+                            <!-- Cost Itemization breakdown -->
+                            <div class="space-y-3 border-t border-brand-darkBorder pt-4 text-xs">
+                                <div class="flex justify-between text-gray-400">
+                                    <span>Pekerjaan Struktur & Pondasi (40%):</span>
+                                    <span id="cost-structure" class="text-gray-200 font-mono">Rp 280.800.000</span>
+                                </div>
+                                <div class="flex justify-between text-gray-400">
+                                    <span>Arsitektural & Dinding (35%):</span>
+                                    <span id="cost-architecture" class="text-gray-200 font-mono">Rp 245.700.000</span>
+                                </div>
+                                <div class="flex justify-between text-gray-400">
+                                    <span>MEP (Mekanikal, Elektrikal, Plambing) (15%):</span>
+                                    <span id="cost-mep" class="text-gray-200 font-mono">Rp 105.300.000</span>
+                                </div>
+                                <div class="flex justify-between text-gray-400">
+                                    <span>Finishing & Cat Premium (10%):</span>
+                                    <span id="cost-finishing" class="text-gray-200 font-mono">Rp 70.200.000</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pt-6 border-t border-brand-darkBorder space-y-3 mt-6">
+                            <a href="https://wa.me/6282156615866?text=Halo%20Santama%20Karya,%20saya%20sudah%20mencoba%20Kalkulator%20RAB%20dengan%20estimasi%20biaya%20tersebut.%20Mohon%20jadwalkan%20konsultasi." target="_blank" class="w-full py-3 rounded-xl bg-brand-orange hover:bg-brand-orangeHover text-white text-xs font-bold transition-all flex items-center justify-center gap-2 shadow-lg shadow-brand-orange/20">
+                                <i data-lucide="phone-call" class="w-4 h-4"></i>
+                                <span>Konsultasikan Hasil Estimasi Ini</span>
+                            </a>
+                            <p class="text-[10px] text-center text-gray-500">*Harga bersifat perkiraan awal. Anggaran pasti akan disusun secara transparan saat survey lokasi.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- VIEW TAB 5: PHOTO LOGS & PROGRESS GALLERY -->
+            <div id="tab-photolog" class="space-y-6 hidden">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                        <h2 class="font-display text-xl font-bold text-white">Log Foto Dokumentasi Lapangan Harian</h2>
+                        <p class="text-xs text-gray-400">Dokumentasi transparan real-time langsung dari lokasi pembangunan untuk dipantau klien.</p>
+                    </div>
+
+                    <button onclick="alert('Fitur Unggah Foto Mandor telah dibuka pada mode seluler.')" class="px-4 py-2 rounded-lg bg-brand-slate border border-brand-darkBorder text-white text-xs font-semibold hover:border-brand-orange transition-all flex items-center gap-2">
+                        <i data-lucide="camera" class="w-4 h-4 text-brand-orange"></i>
+                        <span>Unggah Foto Hari Ini</span>
+                    </button>
+                </div>
+
+                <!-- Gallery Photo Cards Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    
+                    <!-- Photo Log 1 -->
+                    <div class="glass-card rounded-2xl overflow-hidden border border-brand-darkBorder">
+                        <div class="relative h-48">
+                            <img src="https://images.unsplash.com/photo-1541888946425-d0fbb186a5b3?auto=format&fit=crop&w=800&q=80" alt="Pengecoran Struktur" class="w-full h-full object-cover">
+                            <span class="absolute bottom-3 left-3 bg-black/70 backdrop-blur-md px-2.5 py-1 rounded text-[10px] text-white font-medium">
+                                01 Oktober 2026 — 10:15 WIB
+                            </span>
+                        </div>
+                        <div class="p-4">
+                            <span class="text-[10px] font-bold text-brand-orange uppercase tracking-wider block mb-1">Rumah Fajar Indah</span>
+                            <h4 class="font-bold text-sm text-white mb-2">Pengecoran Plat Kolom Lantai 2</h4>
+                            <p class="text-xs text-gray-400">Pengujian slump beton K-300 sesuai standar teknis konstruksi. Struktur kokoh dan rapi.</p>
+                        </div>
+                    </div>
+
+                    <!-- Photo Log 2 -->
+                    <div class="glass-card rounded-2xl overflow-hidden border border-brand-darkBorder">
+                        <div class="relative h-48">
+                            <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80" alt="Interior Finishing" class="w-full h-full object-cover">
+                            <span class="absolute bottom-3 left-3 bg-black/70 backdrop-blur-md px-2.5 py-1 rounded text-[10px] text-white font-medium">
+                                30 September 2026 — 15:40 WIB
+                            </span>
+                        </div>
+                        <div class="p-4">
+                            <span class="text-[10px] font-bold text-brand-orange uppercase tracking-wider block mb-1">Renovasi Solobaru</span>
+                            <h4 class="font-bold text-sm text-white mb-2">Pemasangan Ceiling Gypsum & Indirect Lighting</h4>
+                            <p class="text-xs text-gray-400">Penyelesaian detail plafon ruang keluarga, elevasi dan ketebalan terverifikasi presisi.</p>
+                        </div>
+                    </div>
+
+                    <!-- Photo Log 3 -->
+                    <div class="glass-card rounded-2xl overflow-hidden border border-brand-darkBorder">
+                        <div class="relative h-48">
+                            <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=80" alt="Commercial Façade" class="w-full h-full object-cover">
+                            <span class="absolute bottom-3 left-3 bg-black/70 backdrop-blur-md px-2.5 py-1 rounded text-[10px] text-white font-medium">
+                                29 September 2026 — 11:20 WIB
+                            </span>
+                        </div>
+                        <div class="p-4">
+                            <span class="text-[10px] font-bold text-brand-orange uppercase tracking-wider block mb-1">Coffee Shop Joyosuran</span>
+                            <h4 class="font-bold text-sm text-white mb-2">Fabrikasi Steel Frame Façade Depan</h4>
+                            <p class="text-xs text-gray-400">Pemasangan Rangka Baja Hitam Anti-Karat untuk area outdoor seating coffee shop.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- VIEW TAB 6: SETTINGS -->
+            <div id="tab-settings" class="space-y-6 hidden">
+                <div>
+                    <h2 class="font-display text-xl font-bold text-white">Pengaturan Tim & Lokasi Kantor</h2>
+                    <p class="text-xs text-gray-400">Profil operasional CV Santama Karya Indonesia Surakarta.</p>
+                </div>
+
+                <div class="p-6 glass-card rounded-2xl border border-brand-darkBorder max-w-2xl space-y-4 text-xs">
+                    <div>
+                        <label class="block text-gray-400 mb-1">Nama Resmi Perusahaan</label>
+                        <input type="text" value="CV Santama Karya Indonesia" readonly class="w-full bg-brand-darkCard border border-brand-darkBorder rounded-lg p-2.5 text-white">
+                    </div>
+                    <div>
+                        <label class="block text-gray-400 mb-1">Alamat Head Office</label>
+                        <textarea readonly rows="2" class="w-full bg-brand-darkCard border border-brand-darkBorder rounded-lg p-2.5 text-white">Jl. Kusumodilagan No.33 BL, Kel. Joyosuran, Kec. Pasar Kliwon, Kota Surakarta, Jawa Tengah 57116</textarea>
+                    </div>
+                    <div>
+                        <label class="block text-gray-400 mb-1">Nomor Hotline Konsultasi WhatsApp</label>
+                        <input type="text" value="+62 821-5661-5866" readonly class="w-full bg-brand-darkCard border border-brand-darkBorder rounded-lg p-2.5 text-white">
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- MODAL FOR NEW PROJECT CREATION -->
+    <div id="new-project-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="glass-panel rounded-2xl border border-brand-darkBorder max-w-lg w-full p-6 space-y-5">
+            <div class="flex items-center justify-between border-b border-brand-darkBorder pb-4">
+                <h3 class="font-display font-bold text-lg text-white">Tambah Proyek Pembangunan Baru</h3>
+                <button onclick="closeModal('new-project-modal')" class="text-gray-400 hover:text-white">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <form onsubmit="handleNewProject(event)" class="space-y-4 text-xs">
+                <div>
+                    <label class="block text-gray-300 font-semibold mb-1">Nama Proyek / Klien</label>
+                    <input type="text" required placeholder="Contoh: Rumah Minimalis Bpk. Hendra" class="w-full bg-brand-darkCard border border-brand-darkBorder rounded-xl p-3 text-white focus:outline-none focus:border-brand-orange">
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-gray-300 font-semibold mb-1">Kategori</label>
+                        <select class="w-full bg-brand-darkCard border border-brand-darkBorder rounded-xl p-3 text-white focus:outline-none focus:border-brand-orange">
+                            <option>Bangun Rumah</option>
+                            <option>Coffee Shop</option>
+                            <option>Renovasi</option>
+                            <option>Rumah Dinas</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-gray-300 font-semibold mb-1">Lokasi Proyek</label>
+                        <input type="text" required placeholder="Kota / Area Surakarta" class="w-full bg-brand-darkCard border border-brand-darkBorder rounded-xl p-3 text-white focus:outline-none focus:border-brand-orange">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-gray-300 font-semibold mb-1">Target Selesai</label>
+                        <input type="date" required class="w-full bg-brand-darkCard border border-brand-darkBorder rounded-xl p-3 text-white focus:outline-none focus:border-brand-orange">
+                    </div>
+                    <div>
+                        <label class="block text-gray-300 font-semibold mb-1">Mandor Lapangan</label>
+                        <input type="text" placeholder="Nama Pelaksana" class="w-full bg-brand-darkCard border border-brand-darkBorder rounded-xl p-3 text-white focus:outline-none focus:border-brand-orange">
+                    </div>
+                </div>
+
+                <div class="pt-4 border-t border-brand-darkBorder flex justify-end gap-3">
+                    <button type="button" onclick="closeModal('new-project-modal')" class="px-4 py-2.5 rounded-xl bg-brand-slate text-gray-300 font-semibold">Batal</button>
+                    <button type="submit" class="px-5 py-2.5 rounded-xl bg-brand-orange text-white font-semibold hover:bg-brand-orangeHover transition-all">Simpan Proyek</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT CONTROLLER & INTERACTION ENGINE -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // 1. Sidebar Toggle Mobile
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('-translate-x-full');
+        }
+
+        // 2. Tab Switcher
+        function switchTab(tabId) {
+            const tabs = ['overview', 'projects', 'leads', 'estimator', 'photolog', 'settings'];
+            
+            tabs.forEach(t => {
+                const navBtn = document.getElementById(`nav-${t}`);
+                const tabContent = document.getElementById(`tab-${t}`);
+                
+                if (t === tabId) {
+                    if (navBtn) navBtn.className = "flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium transition-colors active-tab";
+                    if (tabContent) tabContent.classList.remove('hidden');
+                } else {
+                    if (navBtn) navBtn.className = "flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-colors";
+                    if (tabContent) tabContent.classList.add('hidden');
+                }
+            });
+
+            // Close mobile sidebar on tab selection
+            if (window.innerWidth < 1024) {
+                document.getElementById('sidebar').classList.add('-translate-x-full');
+            }
+        }
+
+        // 3. Role View Switcher (Admin vs Client View)
+        let currentRole = 'Admin Kontraktor';
+        function toggleRoleView() {
+            const btn = document.getElementById('role-toggle-btn');
+            if (currentRole === 'Admin Kontraktor') {
+                currentRole = 'Klien Portal';
+                btn.textContent = 'Mode Portal Klien';
+                btn.className = 'px-2.5 py-1 rounded bg-blue-600 text-white font-semibold transition-all';
+            } else {
+                currentRole = 'Admin Kontraktor';
+                btn.textContent = 'Admin Kontraktor';
+                btn.className = 'px-2.5 py-1 rounded bg-brand-orange text-white font-semibold transition-all';
+            }
+        }
+
+        // 4. RAB Estimator Calculator Engine
+        let baseCostPerM2 = 4500000;
+
+        function setEstType(type, cost) {
+            baseCostPerM2 = cost;
+            ['rumah', 'coffee', 'renovasi'].forEach(t => {
+                const btn = document.getElementById(`est-type-${t}`);
+                if (t === type) {
+                    btn.className = "p-3 rounded-xl bg-brand-orange/20 border border-brand-orange text-white text-xs font-semibold text-center transition-all";
+                } else {
+                    btn.className = "p-3 rounded-xl bg-brand-slate border border-brand-darkBorder text-gray-400 hover:text-white text-xs font-semibold text-center transition-all";
+                }
+            });
+            calculateEstimator();
+        }
+
+        function calculateEstimator() {
+            const area = parseInt(document.getElementById('area-slider').value);
+            const specMultiplier = parseFloat(document.getElementById('spec-select').value);
+            const includeDesign = document.getElementById('include-design').checked;
+
+            document.getElementById('area-val-display').textContent = `${area} m²`;
+
+            let total = area * baseCostPerM2 * specMultiplier;
+            if (includeDesign) {
+                total += area * 85000; // Rp 85.000 / m² design fee
+            }
+
+            const formattedTotal = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(total);
+            document.getElementById('total-cost-display').textContent = formattedTotal;
+
+            // Breakdown
+            document.getElementById('cost-structure').textContent = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(total * 0.40);
+            document.getElementById('cost-architecture').textContent = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(total * 0.35);
+            document.getElementById('cost-mep').textContent = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(total * 0.15);
+            document.getElementById('cost-finishing').textContent = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(total * 0.10);
+        }
+
+        // 5. Modal Operations
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.remove('hidden');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+        }
+
+        function handleNewProject(e) {
+            e.preventDefault();
+            closeModal('new-project-modal');
+            alert('Proyek berhasil ditambahkan ke sistem operasional!');
+            switchTab('projects');
+        }
+
+        function viewProjectDetails(projectName) {
+            alert(`Membuka berkas checklist & log mandor untuk: ${projectName}`);
+        }
+
+        // 6. Chart.js Initialization for Progress Curve
+        window.onload = function() {
+            const ctx = document.getElementById('progressChart').getContext('2d');
+            
+            const gradientOrange = ctx.createLinearGradient(0, 0, 0, 300);
+            gradientOrange.addColorStop(0, 'rgba(217, 107, 39, 0.4)');
+            gradientOrange.addColorStop(1, 'rgba(217, 107, 39, 0.0)');
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Minggu 1', 'Minggu 2', 'Minggu 3', 'Minggu 4', 'Minggu 5', 'Minggu 6', 'Minggu 7', 'Minggu 8'],
+                    datasets: [
+                        {
+                            label: 'Realisasi Fisik (%)',
+                            data: [5, 12, 22, 38, 52, 68, 80, 92],
+                            borderColor: '#D96B27',
+                            backgroundColor: gradientOrange,
+                            fill: true,
+                            tension: 0.4,
+                            borderWidth: 3,
+                            pointBackgroundColor: '#D96B27'
+                        },
+                        {
+                            label: 'Target RAB (%)',
+                            data: [5, 10, 20, 32, 48, 62, 75, 88],
+                            borderColor: '#64748B',
+                            borderDash: [5, 5],
+                            fill: false,
+                            tension: 0.4,
+                            borderWidth: 2,
+                            pointRadius: 0
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: '#2A323D' },
+                            ticks: { color: '#94A3B8', font: { size: 10 } }
+                        },
+                        y: {
+                            min: 0,
+                            max: 100,
+                            grid: { color: '#2A323D' },
+                            ticks: { 
+                                color: '#94A3B8', 
+                                font: { size: 10 },
+                                callback: function(value) { return value + '%'; }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Calculate initial RAB
+            calculateEstimator();
+        };
+    </script>
+</body>
+</html>

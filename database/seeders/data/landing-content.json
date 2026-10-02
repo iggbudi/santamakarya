@@ -1,0 +1,301 @@
+{
+  "schema_version": 1,
+  "settings": {
+    "identity": {
+      "company_name": "CV Santama Karya Indonesia",
+      "brand_name": "SANTAMA KARYA",
+      "brand_suffix": "INDONESIA",
+      "tagline": "Berkarya untuk Maju",
+      "logo_light_media_id": null,
+      "logo_dark_media_id": null,
+      "favicon_media_id": null
+    },
+    "hero": {
+      "interval_ms": 5000,
+      "headline": "Berkarya untuk Maju",
+      "description": "Mewujudkan bangunan sesuai kebutuhan Anda, dari rencana hingga menjadi nyata.",
+      "badge": "Kontraktor & Pembangunan Terpercaya",
+      "consultation_label": "Konsultasikan Proyek Anda",
+      "visit_label": "Kunjungi Kami"
+    },
+    "about": {
+      "interval_ms": 5000,
+      "heading": "Tentang Santama Karya",
+      "description": "Santama Karya hadir sebagai partner dalam mewujudkan kebutuhan pembangunan Anda, dari rumah, renovasi, hingga bangunan komersial.",
+      "quote": "“Sudah punya desain atau masih mencari gambaran? Kami siap membantu.”",
+      "eyebrow": "Profil Perusahaan",
+      "location_label": "Surakarta, Jawa Tengah",
+      "location_description": "Standar Konstruksi Terukur & Rapi",
+      "metrics": [
+        {
+          "value": "100%",
+          "label": "Pengerjaan Terencana & Terarah"
+        },
+        {
+          "value": "Transparan",
+          "label": "Estimasi & Material Berkualitas"
+        }
+      ]
+    },
+    "services": {
+      "heading": "Yang Bisa Kami Kerjakan",
+      "eyebrow": "Layanan Utama",
+      "description": "Layanan konstruksi komprehensif yang dirancang untuk memberikan kenyamanan, kepastian, dan hasil presisi.",
+      "items": [
+        {
+          "title": "Bangun Rumah",
+          "description": "Pembangunan dari 0 hingga siap digunakan.",
+          "image_url": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
+          "alt_text": "Bangun Rumah dari 0"
+        },
+        {
+          "title": "Bangun dari Desain Anda",
+          "description": "Merealisasikan desain yang sudah Anda miliki.",
+          "image_url": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80",
+          "alt_text": "Bangun dari Desain Anda"
+        },
+        {
+          "title": "Konsultasi & Perencanaan",
+          "description": "Membantu Anda yang belum memiliki desain.",
+          "image_url": "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=800&q=80",
+          "alt_text": "Konsultasi & Perencanaan"
+        },
+        {
+          "title": "Renovasi",
+          "description": "Mengubah dan meningkatkan fungsi bangunan.",
+          "image_url": "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80",
+          "alt_text": "Renovasi Bangunan"
+        },
+        {
+          "title": "Coffee Shop",
+          "description": "Pembangunan ruang usaha sesuai konsep.",
+          "image_url": "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=80",
+          "alt_text": "Pembangunan Coffee Shop"
+        },
+        {
+          "title": "Rumah Dinas",
+          "description": "Pembangunan dengan kebutuhan yang disesuaikan.",
+          "image_url": "https://images.unsplash.com/photo-1600585152220-90363fe7e115?auto=format&fit=crop&w=800&q=80",
+          "alt_text": "Pembangunan Rumah Dinas"
+        }
+      ]
+    },
+    "advantages": {
+      "heading": "Kenapa Santama Karya?",
+      "eyebrow": "Nilai Utama",
+      "items": [
+        {
+          "title": "Profesional",
+          "description": "Pengerjaan terarah dan komunikatif."
+        },
+        {
+          "title": "Mengutamakan Kualitas",
+          "description": "Fokus pada hasil dan detail pekerjaan."
+        },
+        {
+          "title": "Sesuai Kebutuhan",
+          "description": "Menyesuaikan kebutuhan setiap proyek."
+        },
+        {
+          "title": "Didampingi dari Awal",
+          "description": "Membantu Anda memahami proses pembangunan."
+        }
+      ]
+    },
+    "workflow": {
+      "heading": "Alur Kerja",
+      "eyebrow": "Proses Kerja",
+      "items": [
+        {
+          "title": "Konsultasi",
+          "description": "Ceritakan kebutuhan proyek Anda."
+        },
+        {
+          "title": "Survey",
+          "description": "Kami memahami kondisi dan kebutuhan lokasi."
+        },
+        {
+          "title": "Perencanaan",
+          "description": "Membahas konsep dan kebutuhan proyek."
+        },
+        {
+          "title": "Pengerjaan",
+          "description": "Proses pembangunan sesuai perencanaan."
+        },
+        {
+          "title": "Selesai",
+          "description": "Proyek siap digunakan."
+        }
+      ]
+    },
+    "contact": {
+      "cta_heading": "Punya Rencana Bangun atau Renovasi?",
+      "cta_description": "Mari diskusikan kebutuhan proyek Anda bersama Santama Karya.",
+      "schedule_label": "Jadwalkan Konsultasi",
+      "visit_label": "Kunjungi Kami",
+      "background_url": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80",
+      "location_heading": "Temui Kami",
+      "location_eyebrow": "Kantor Utama",
+      "location_description": "Kami menyambut Anda untuk berkonsultasi langsung mengenai rencana proyek Anda.",
+      "business_label": "Kontraktor & Pembangunan",
+      "address": "Jl. Kusumodilagan No.33 BL, Kelurahan Joyosuran, Kecamatan Pasar Kliwon, Kota Surakarta, Jawa Tengah 57116",
+      "opening_hours": "Senin – Sabtu: 09.00 – 16.00 WIB",
+      "phone_display": "+62 821-5661-5866",
+      "whatsapp_number": "6282156615866",
+      "consultation_message": "Halo Santama Karya, saya ingin konsultasi mengenai proyek pembangunan.",
+      "maps_url": "https://maps.google.com/?cid=2603420776098972582",
+      "maps_embed_url": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3955.0113886733256!2d110.83510!3d-7.58150!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a16f437e9e561%3A0x2421356700000000!2sJl.%20Kusumodilagan%20No.33%20BL%20Joyosuran%20Pasar%20Kliwon%20Surakarta!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid",
+      "maps_label": "Buka Google Maps",
+      "footer_address": "Jl. Kusumodilagan No.33 BL, Kel. Joyosuran, Kec. Pasar Kliwon, Kota Surakarta, Jawa Tengah 57116",
+      "messages": {
+        "cta_0": "Halo Santama Karya, saya ingin konsultasi mengenai proyek pembangunan.",
+        "cta_1": "Halo Santama Karya, saya ingin konsultasi mengenai proyek pembangunan.",
+        "cta_2": "Halo Santama Karya, saya ingin konsultasikan proyek pembangunan saya.",
+        "cta_3": "Halo Santama Karya, saya ingin menjadwalkan konsultasi proyek.",
+        "cta_5": "Halo Santama Karya, saya ingin konsultasi mengenai proyek pembangunan."
+      }
+    },
+    "footer": {
+      "tagline": "“Berkarya untuk Maju”",
+      "description": "Partner kontraktor dan pembangunan terpercaya di Surakarta. Fokus pada kualitas, ketepatan, dan kenyamanan bangunan Anda.",
+      "maps_name": "Santama Karya Indonesia",
+      "copyright": "© 2026 CV Santama Karya Indonesia. All Rights Reserved."
+    },
+    "seo": {
+      "title": "CV Santama Karya Indonesia — Kontraktor & Pembangunan Surakarta",
+      "description": "Partner kontraktor dan pembangunan di Surakarta. Bangun rumah, renovasi, dan bangunan komersial bersama CV Santama Karya Indonesia."
+    },
+    "portfolio": {
+      "heading": "Portfolio",
+      "eyebrow": "Galeri Karya"
+    }
+  },
+  "slides": {
+    "hero": [
+      {
+        "media_asset_id": null,
+        "image_url": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80",
+        "alt_text": "Foto bangunan 1",
+        "position_x": 50,
+        "position_y": 50,
+        "sort_order": 0,
+        "is_active": true
+      },
+      {
+        "media_asset_id": null,
+        "image_url": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1920&q=80",
+        "alt_text": "Foto bangunan 2",
+        "position_x": 50,
+        "position_y": 50,
+        "sort_order": 1,
+        "is_active": true
+      },
+      {
+        "media_asset_id": null,
+        "image_url": "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1920&q=80",
+        "alt_text": "Foto bangunan 3",
+        "position_x": 50,
+        "position_y": 50,
+        "sort_order": 2,
+        "is_active": true
+      },
+      {
+        "media_asset_id": null,
+        "image_url": "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1920&q=80",
+        "alt_text": "Foto bangunan 4",
+        "position_x": 50,
+        "position_y": 50,
+        "sort_order": 3,
+        "is_active": true
+      }
+    ],
+    "about": [
+      {
+        "media_asset_id": null,
+        "image_url": "https://images.unsplash.com/photo-1541888946425-d0fbb186a5b3?auto=format&fit=crop&w=1000&q=80",
+        "alt_text": "Santama Karya Detail Konstruksi",
+        "position_x": 50,
+        "position_y": 50,
+        "sort_order": 0,
+        "is_active": true
+      }
+    ]
+  },
+  "portfolio": {
+    "categories": [
+      {
+        "name": "Rumah",
+        "slug": "rumah",
+        "sort_order": 1
+      },
+      {
+        "name": "Renovasi",
+        "slug": "renovasi",
+        "sort_order": 2
+      },
+      {
+        "name": "Commercial",
+        "slug": "commercial",
+        "sort_order": 3
+      }
+    ],
+    "projects": [
+      {
+        "title": "Hunian Tropis Modern",
+        "category_slug": "rumah",
+        "image_url": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
+        "alt_text": "Kediaman Modern Minimalis",
+        "sort_order": 0,
+        "is_active": true,
+        "caption": "Project Gallery",
+        "cover_media_asset_id": null,
+        "category_name": "Rumah"
+      },
+      {
+        "title": "Kopi & Ruang Usaha Minimalis",
+        "category_slug": "commercial",
+        "image_url": "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=80",
+        "alt_text": "Coffee Shop Surakarta",
+        "sort_order": 1,
+        "is_active": true,
+        "caption": "Project Gallery",
+        "cover_media_asset_id": null,
+        "category_name": "Commercial"
+      },
+      {
+        "title": "Renovasi Façade & Interior",
+        "category_slug": "renovasi",
+        "image_url": "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80",
+        "alt_text": "Renovasi Interior Rumah",
+        "sort_order": 2,
+        "is_active": true,
+        "caption": "Project Gallery",
+        "cover_media_asset_id": null,
+        "category_name": "Renovasi"
+      },
+      {
+        "title": "Rumah Tinggal 2 Lantai",
+        "category_slug": "rumah",
+        "image_url": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80",
+        "alt_text": "Desain Arsitektur Modern",
+        "sort_order": 4,
+        "is_active": true,
+        "caption": "Project Gallery",
+        "cover_media_asset_id": null,
+        "category_name": "Rumah"
+      },
+      {
+        "title": "Pengembangan Ruang Keluarga",
+        "category_slug": "renovasi",
+        "image_url": "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80",
+        "alt_text": "Penataan Ulang Tata Ruang",
+        "sort_order": 5,
+        "is_active": true,
+        "caption": "Project Gallery",
+        "cover_media_asset_id": null,
+        "category_name": "Renovasi"
+      }
+    ]
+  },
+  "media": []
+}
