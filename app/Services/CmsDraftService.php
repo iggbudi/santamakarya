@@ -13,6 +13,11 @@ class CmsDraftService
     public function build(): array
     {
         $settings = SiteSetting::findOrFail(1)->draft_payload;
+        // Backfill drafts that predate the named-contact / second-number fields.
+        $settings['contact']['whatsapp_name'] = $settings['contact']['whatsapp_name'] ?? null;
+        $settings['contact']['whatsapp_number_2'] = $settings['contact']['whatsapp_number_2'] ?? null;
+        $settings['contact']['whatsapp_name_2'] = $settings['contact']['whatsapp_name_2'] ?? null;
+        $settings['contact']['phone_display_2'] = $settings['contact']['phone_display_2'] ?? null;
         foreach ($settings['services']['items'] as &$item) {
             if (! empty($item['image_media_id'])) {
                 $item['image_url'] = MediaAsset::find($item['image_media_id'])?->url;

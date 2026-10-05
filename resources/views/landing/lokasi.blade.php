@@ -33,10 +33,18 @@
 <i class="w-5 h-5 text-brand-orange flex-shrink-0 mt-0.5" data-lucide="map-pin"></i>
 <span>{{ $settings['contact']['address'] }}</span>
 </div>
+@php($telLabel1 = trim((string) ($settings['contact']['whatsapp_name'] ?? '')) !== '' ? trim((string) ($settings['contact']['whatsapp_name'] ?? '')).' ('.trim((string) ($settings['contact']['phone_display'] ?? ('+'.$settings['contact']['whatsapp_number']))).')' : ($settings['contact']['phone_display'] ?? '+'.$settings['contact']['whatsapp_number']))
+@php($telLabel2 = !empty($settings['contact']['whatsapp_number_2']) ? (trim((string) ($settings['contact']['whatsapp_name_2'] ?? '')) !== '' ? trim((string) ($settings['contact']['whatsapp_name_2'] ?? '')).' ('.trim((string) ($settings['contact']['phone_display_2'] ?? ('+'.$settings['contact']['whatsapp_number_2']))).')' : ($settings['contact']['phone_display_2'] ?? '+'.$settings['contact']['whatsapp_number_2'])) : null)
 <div class="flex items-center gap-3">
 <i class="w-5 h-5 text-brand-orange flex-shrink-0" data-lucide="phone"></i>
-<a class="hover:text-brand-orange transition-colors" href="{{ 'tel:+'.$settings['contact']['whatsapp_number'] }}">{{ $settings['contact']['phone_display'] }}</a>
+<a class="hover:text-brand-orange transition-colors" href="{{ 'tel:+'.$settings['contact']['whatsapp_number'] }}">{{ $telLabel1 }}</a>
 </div>
+@if(!empty($settings['contact']['whatsapp_number_2']))
+<div class="flex items-center gap-3">
+<i class="w-5 h-5 text-brand-orange flex-shrink-0" data-lucide="phone"></i>
+<a class="hover:text-brand-orange transition-colors" href="{{ 'tel:+'.$settings['contact']['whatsapp_number_2'] }}">{{ $telLabel2 }}</a>
+</div>
+@endif
 <div class="flex items-center gap-3">
 <i class="w-5 h-5 text-brand-orange flex-shrink-0" data-lucide="clock"></i>
 <span>{{ $settings['contact']['opening_hours'] }}</span>

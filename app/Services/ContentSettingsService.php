@@ -33,7 +33,11 @@ class ContentSettingsService
     public static function contactRules(): array
     {
         return [
+            'whatsapp_name' => 'nullable|string|max:50',
             'whatsapp_number' => ['required', 'regex:/^[1-9][0-9]{7,14}$/'],
+            'whatsapp_name_2' => 'nullable|string|max:50|required_with:whatsapp_number_2',
+            'whatsapp_number_2' => ['nullable', 'regex:/^[1-9][0-9]{7,14}$/', 'required_with:whatsapp_name_2'],
+            'phone_display_2' => 'nullable|string|max:100',
             'consultation_message' => 'required|string|max:800', 'address' => 'required|string|max:800', 'opening_hours' => 'required|string|max:100',
             'maps_url' => ['required', 'string', 'max:2048', new GoogleMapsUrl],
             'maps_embed_url' => ['required', 'string', 'max:2048', new GoogleMapsUrl(true)],
@@ -51,8 +55,27 @@ class ContentSettingsService
     {
         $values = Validator::make($data, self::contactRules())->validate();
         $this->save(function (array $draft) use ($values) {
+            $normalize = fn ($v) => $v === '' ? null : $v;
+            $draft['contact']['whatsapp_name'] = $normalize($draft['contact']['whatsapp_name'] ?? null);
+            $draft['contact']['whatsapp_number_2'] = $normalize($draft['contact']['whatsapp_number_2'] ?? null);
+            $draft['contact']['whatsapp_name_2'] = $normalize($draft['contact']['whatsapp_name_2'] ?? null);
+            $draft['contact']['phone_display_2'] = $normalize($draft['contact']['phone_display_2'] ?? null);
             $contact = [...$draft['contact'], ...$values];
+            $contact['whatsapp_name'] = $normalize($contact['whatsapp_name'] ?? null);
             $contact['phone_display'] = $draft['contact']['whatsapp_number'] === $values['whatsapp_number'] ? $draft['contact']['phone_display'] : '+'.$values['whatsapp_number'];
+            $number2 = $normalize($contact['whatsapp_number_2'] ?? null);
+            $name2 = $normalize($contact['whatsapp_name_2'] ?? null);
+            if (empty($number2)) {
+                $contact['whatsapp_number_2'] = null;
+                $contact['whatsapp_name_2'] = null;
+                $contact['phone_display_2'] = null;
+            } else {
+                $contact['whatsapp_number_2'] = $number2;
+                $contact['whatsapp_name_2'] = $name2;
+                if (($draft['contact']['whatsapp_number_2'] ?? null) !== $number2 || empty($draft['contact']['phone_display_2'] ?? null)) {
+                    $contact['phone_display_2'] = '+'.$number2;
+                }
+            }
             $contact['footer_address'] = $values['address'];
             $contact['consultation_message_enabled'] = true;
             foreach (array_keys($contact['messages']) as $key) {

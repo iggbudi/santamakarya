@@ -35,8 +35,14 @@
 <div class="lg:col-span-4">
 <h4 class="font-display font-bold text-sm text-white uppercase tracking-wider mb-4">Kontak &amp; Alamat</h4>
 <p class="text-sm text-gray-400 leading-relaxed mb-3">{{ $settings['contact']['footer_address'] }}</p>
+@php($waQuery = !empty($settings['contact']['consultation_message_enabled']) ? '?text='.rawurlencode($settings['contact']['consultation_message']) : '')
+@php($waLabel1 = trim((string) ($settings['contact']['whatsapp_name'] ?? '')) !== '' ? trim((string) ($settings['contact']['whatsapp_name'] ?? '')).' ('.trim((string) ($settings['contact']['phone_display'] ?? ('+'.$settings['contact']['whatsapp_number']))).')' : ($settings['contact']['phone_display'] ?? '+'.$settings['contact']['whatsapp_number']))
+@php($waLabel2 = !empty($settings['contact']['whatsapp_number_2']) ? (trim((string) ($settings['contact']['whatsapp_name_2'] ?? '')) !== '' ? trim((string) ($settings['contact']['whatsapp_name_2'] ?? '')).' ('.trim((string) ($settings['contact']['phone_display_2'] ?? ('+'.$settings['contact']['whatsapp_number_2']))).')' : ($settings['contact']['phone_display_2'] ?? '+'.$settings['contact']['whatsapp_number_2'])) : null)
 <p class="text-sm text-gray-300 font-medium mb-1">
-                        WhatsApp: <a class="hover:text-brand-orange transition-colors" href="{{ 'https://wa.me/'.$settings['contact']['whatsapp_number'].(!empty($settings['contact']['consultation_message_enabled']) ? '?text='.rawurlencode($settings['contact']['consultation_message']) : '') }}">{{ $settings['contact']['phone_display'] }}</a>
+                        WhatsApp: <a class="hover:text-brand-orange transition-colors" href="{{ 'https://wa.me/'.$settings['contact']['whatsapp_number'].$waQuery }}">{{ $waLabel1 }}</a>
+@if(!empty($settings['contact']['whatsapp_number_2']))
+<br />WhatsApp 2: <a class="hover:text-brand-orange transition-colors" href="{{ 'https://wa.me/'.$settings['contact']['whatsapp_number_2'].$waQuery }}">{{ $waLabel2 }}</a>
+@endif
 </p>
 <p class="text-sm text-gray-400">
                         Google Maps: <a class="text-brand-orange hover:underline" href="{{ $settings['contact']['maps_url'] }}" rel="noopener" target="_blank">{{ $settings['footer']['maps_name'] }}</a>

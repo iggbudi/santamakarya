@@ -69,6 +69,10 @@ class PublicationService
             'portfolio.projects.*.alt_text' => 'present|nullable|string|max:255', 'portfolio.projects.*.caption' => 'present|nullable|string|max:100',
             'portfolio.categories.*.name' => 'required|string|max:80', 'portfolio.categories.*.slug' => ['required', 'regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/'],
             'settings.contact.whatsapp_number' => ['required', 'regex:/^[1-9][0-9]{7,14}$/'],
+            'settings.contact.whatsapp_name' => 'nullable|string|max:50',
+            'settings.contact.whatsapp_number_2' => ['nullable', 'regex:/^[1-9][0-9]{7,14}$/', 'required_with:settings.contact.whatsapp_name_2'],
+            'settings.contact.whatsapp_name_2' => 'nullable|string|max:50|required_with:settings.contact.whatsapp_number_2',
+            'settings.contact.phone_display_2' => 'nullable|string|max:100',
         ];
         // Schema v1 follows the structured seed and the indexed fields required by Blade.
         $template = json_decode(file_get_contents(database_path('seeders/data/landing-content.json')), true, 512, JSON_THROW_ON_ERROR)['settings'];
@@ -124,8 +128,8 @@ class PublicationService
                 }
             } elseif (str_ends_with((string) $key, '_media_id')) {
                 $rules[$path] = 'present|nullable|integer';
-            } elseif ($key === 'brand_suffix') {
-                $rules[$path] = 'present|nullable|string|max:100';
+            } elseif ($key === 'brand_suffix' || in_array($key, ['whatsapp_name', 'whatsapp_name_2', 'whatsapp_number_2', 'phone_display_2'], true)) {
+                $rules[$path] = 'present|nullable|string|max:5000';
             } else {
                 $rules[$path] = 'required|string|max:5000';
             }
